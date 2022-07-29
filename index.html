@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./dist/css/style.css">
+  <title>Calculadora de Investimento</title>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Busca CEP - API ViaCEP</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="m-5">
+      <div class="container">
+        <ul class="nav nav-pills nav-fill justify-content-center" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Busca pelo CEP</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Busca pelo Endereço</button>
+          </li>
+        </ul>
+        <div class="tab-content my-5 mx-3" id="myTabContent">
+          <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+            <h3 class="display-6 text-center mb-5">Aqui se busca o endereço usando o CEP</h3>
+            <div class="input-group">
+              <input type="text" class="form-control" aria-label="Área de Texto para inserção do CEP a ser buscado" id="digitaCEP" placeholder="Insira aqui o CEP que voce quer buscar">
+              <button type="submit" class="btn btn-outline-secondary" id="submitCEP">Buscar</button>
+              <select class="form-select" id="listaTiposAPI" aria-label="Example select with button addon">
+                <option selected>Escolha o tipo de API</option>
+
+              </select>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">Aqui se busca o CEP usando o endereço</div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+
+  </footer>
+  <script src="dist/js/bootstrap.min.js"></script>
+  <script src="dist/js/bootstrap.bundle.min.js"></script>
+  <script src="dist/js/main.js"></script>
+</body>
