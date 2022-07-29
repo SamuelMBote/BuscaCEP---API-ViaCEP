@@ -23,15 +23,20 @@
         <section>
           <ul class="nav nav-pills nav-fill justify-content-center" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Busca pelo CEP</button>
+              <button class="nav-link active" id="cep-tab" data-bs-toggle="tab" data-bs-target="#cep-tab-pane" type="button" role="tab" aria-controls="cep-tab-pane" aria-selected="true">Busca pelo CEP</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Busca pelo Endereço</button>
+              <button class="nav-link" id="endereco-tab" data-bs-toggle="tab" data-bs-target="#endereco-tab-pane" type="button" role="tab" aria-controls="endereco-tab-pane" aria-selected="false">Busca pelo Endereço</button>
             </li>
           </ul>
-          <div class="tab-content my-5 mx-3" id="myTabContent">
-            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        </section>
+        <section>
+          <!--TAB CEP -->
+          <div class="tab-content my-5 mx-3" id="informaCEP">
+            <div class="tab-pane fade show active" id="cep-tab-pane" role="tabpanel" aria-labelledby="cep-tab" tabindex="0">
+
               <h3 class="display-6 text-center mb-5">Aqui se busca o endereço usando o CEP</h3>
+
               <div class="input-group">
                 <input type="text" class="form-control" aria-label="Área de Texto para inserção do CEP a ser buscado" id="digitaCEP" placeholder="Insira aqui o CEP que voce quer buscar">
                 <button type="submit" class="btn btn-outline-secondary" id="submitCEP">Buscar</button>
@@ -40,52 +45,50 @@
 
                 </select>
               </div>
-
-        </section>
-        <section class="">
-          <div class="row">
-            <div class="col col-lg-12 mb-3">
-              <p class="display-6 text-center" id="cep"></p>
+              <div class="row">
+                <div class="col col-lg-12 mb-3">
+                  <p class="display-6 text-center" id="cep"></p>
+                </div>
+                <div class="col-12 col-lg-5">
+                  <label for="logradouro" class="col-form-label">Logradouro</label>
+                  <input type="text" readonly class="form-control" id="logradouro" value="">
+                </div>
+                <div class="col-12 col-lg-3">
+                  <label for="complemento" class="col-form-label">Complemento</label>
+                  <input type="text" readonly class="form-control" id="complemento" value="">
+                </div>
+                <div class="col-12 col-lg-4">
+                  <label for="bairro" class="col-form-label">Bairro</label>
+                  <input type="text" readonly class="form-control" id="bairro" value="">
+                </div>
+                <div class="col-6">
+                  <label for="cidade" class="col-form-label">Cidade</label>
+                  <input type="text" readonly class="form-control" id="cidade" value="">
+                </div>
+                <div class="col-2">
+                  <label for="uf" class="col-form-label">UF</label>
+                  <input type="text" readonly class="form-control" id="uf" value="">
+                </div>
+                <div class="col-2">
+                  <label for="ibge" class="col-form-label">IBGE</label>
+                  <input type="text" readonly class="form-control" id="ibge" value="">
+                </div>
+                <div class="col-2">
+                  <label for="ddd" class="col-sm-2 col-form-label">DDD</label>
+                  <input type="text" readonly class="form-control" id="ddd" value="">
+                </div>
+              </div>
             </div>
-            <div class="col-12 col-lg-5">
-              <label for="logradouro" class="col-form-label">Logradouro</label>
-              <input type="text" readonly class="form-control" id="logradouro" value="">
-            </div>
-            <div class="col-12 col-lg-3">
-              <label for="complemento" class="col-form-label">Complemento</label>
-              <input type="text" readonly class="form-control" id="complemento" value="">
-            </div>
-            <div class="col-12 col-lg-4">
-              <label for="bairro" class="col-form-label">Bairro</label>
-              <input type="text" readonly class="form-control" id="bairro" value="">
-            </div>
-            <div class="col-6">
-              <label for="cidade" class="col-form-label">Cidade</label>
-              <input type="text" readonly class="form-control" id="cidade" value="">
-            </div>
-            <div class="col-2">
-              <label for="uf" class="col-form-label">UF</label>
-              <input type="text" readonly class="form-control" id="uf" value="">
-            </div>
-            <div class="col-2">
-              <label for="ibge" class="col-form-label">IBGE</label>
-              <input type="text" readonly class="form-control" id="ibge" value="">
-            </div>
-            <div class="col-2">
-              <label for="ddd" class="col-sm-2 col-form-label">DDD</label>
-              <input type="text" readonly class="form-control" id="ddd" value="">
-            </div>
+            <!--TAB CEP -->
+            <!--TAB ENDEREÇO -->
+            <div class="tab-pane fade" id="endereco-tab-pane" role="tabpanel" aria-labelledby="endereco-tab" tabindex="0">Aqui se busca o CEP usando o endereço</div>
+            <!--TAB ENDEREÇO -->
           </div>
         </section>
-      </div>
-      </div>
-      <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">Aqui se busca o CEP usando o endereço</div>
-      </div>
       </div>
     </section>
   </main>
   <footer>
-
   </footer>
   <script src="dist/js/bootstrap.min.js"></script>
   <script src="dist/js/bootstrap.bundle.min.js"></script>
