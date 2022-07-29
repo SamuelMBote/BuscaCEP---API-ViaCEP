@@ -53,56 +53,86 @@ function enviaCep() {
 
     xmlhttp.open('GET', `https://viacep.com.br/ws/${cep}/${api}/`, false);
     xmlhttp.send();
-
-    return (resultado = {
-      cep: xmlhttp.responseXML.documentElement.querySelector('cep').innerHTML,
-      logradouro:
-        xmlhttp.responseXML.documentElement.querySelector('logradouro')
+    if (xmlhttp.responseXML.documentElement.querySelector('erro')) {
+      return (resultado = {
+        erro: true,
+        cep: '',
+        logradouro: '',
+        complemento: '',
+        bairro: '',
+        cidade: '',
+        uf: '',
+        ibge: '',
+        ddd: '',
+      });
+    } else {
+      return (resultado = {
+        erro: false,
+        cep: xmlhttp.responseXML.documentElement.querySelector('cep').innerHTML,
+        logradouro:
+          xmlhttp.responseXML.documentElement.querySelector('logradouro')
+            .innerHTML,
+        complemento:
+          xmlhttp.responseXML.documentElement.querySelector('complemento')
+            .innerHTML,
+        bairro:
+          xmlhttp.responseXML.documentElement.querySelector('bairro').innerHTML,
+        cidade:
+          xmlhttp.responseXML.documentElement.querySelector('localidade')
+            .innerHTML,
+        uf: xmlhttp.responseXML.documentElement.querySelector('uf').innerHTML,
+        ibge: xmlhttp.responseXML.documentElement.querySelector('ibge')
           .innerHTML,
-      complemento:
-        xmlhttp.responseXML.documentElement.querySelector('complemento')
-          .innerHTML,
-      bairro:
-        xmlhttp.responseXML.documentElement.querySelector('bairro').innerHTML,
-      cidade:
-        xmlhttp.responseXML.documentElement.querySelector('localidade')
-          .innerHTML,
-      uf: xmlhttp.responseXML.documentElement.querySelector('uf').innerHTML,
-      ibge: xmlhttp.responseXML.documentElement.querySelector('ibge').innerHTML,
-      ddd: xmlhttp.responseXML.documentElement.querySelector('ddd').innerHTML,
-    });
+        ddd: xmlhttp.responseXML.documentElement.querySelector('ddd').innerHTML,
+      });
+    }
   }
 }
+
 function preencheTela() {
-  resultado.cep == ''
-    ? cep.innerHTML == 'NÃO INFORMADO'
-    : (cep.innerHTML = resultado.cep);
+  if (resultado.erro == true) {
+    cep.innerHTML = '';
+    logradouro.value = '';
+    complemento.value = '';
+    bairro.value = '';
+    cidade.value = '';
+    uf.value = '';
+    ibge.value = '';
+    ddd.value = '';
+    window.alert('CEP não Encontrado!');
+  } else {
+    resultado.cep == ''
+      ? cep.innerHTML == 'NÃO INFORMADO'
+      : (cep.innerHTML = resultado.cep);
 
-  resultado.logradouro == ''
-    ? (logradouro.value = 'NÃO INFORMADO')
-    : (logradouro.value = resultado.logradouro);
+    resultado.logradouro == ''
+      ? (logradouro.value = 'NÃO INFORMADO')
+      : (logradouro.value = resultado.logradouro);
 
-  resultado.complemento == ''
-    ? (complemento.value = 'NÃO INFORMADO')
-    : (complemento.value = resultado.complemento);
+    resultado.complemento == ''
+      ? (complemento.value = 'NÃO INFORMADO')
+      : (complemento.value = resultado.complemento);
 
-  resultado.bairro == ''
-    ? (bairro.value = 'NÃO INFORMADO')
-    : (bairro.value = resultado.bairro);
+    resultado.bairro == ''
+      ? (bairro.value = 'NÃO INFORMADO')
+      : (bairro.value = resultado.bairro);
 
-  resultado.cidade == ''
-    ? (cidade.value = 'NÃO INFORMADO')
-    : (cidade.value = resultado.cidade);
+    resultado.cidade == ''
+      ? (cidade.value = 'NÃO INFORMADO')
+      : (cidade.value = resultado.cidade);
 
-  resultado.uf == '' ? (uf.value = 'NÃO INFORMADO') : (uf.value = resultado.uf);
+    resultado.uf == ''
+      ? (uf.value = 'NÃO INFORMADO')
+      : (uf.value = resultado.uf);
 
-  resultado.ibge == ''
-    ? (ibge.value = 'NÃO INFORMADO')
-    : (ibge.value = resultado.ibge);
+    resultado.ibge == ''
+      ? (ibge.value = 'NÃO INFORMADO')
+      : (ibge.value = resultado.ibge);
 
-  resultado.ddd == ''
-    ? (ddd.value = 'NÃO INFORMADO')
-    : (ddd.value = resultado.ddd);
+    resultado.ddd == ''
+      ? (ddd.value = 'NÃO INFORMADO')
+      : (ddd.value = resultado.ddd);
+  }
 }
 
 enviaCep();
