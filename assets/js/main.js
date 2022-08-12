@@ -10,8 +10,11 @@ const cidade = document.querySelector('#cidade');
 const uf = document.querySelector('#uf');
 const ibge = document.querySelector('#ibge');
 const ddd = document.querySelector('#ddd');
+const vibracaoErro = (mensagem) => {
+  window.navigator.vibrate(300).pipe(window.alert(mensagem));
+};
 
-let resultado = new Object();
+let resultado = [];
 window.addEventListener('load', createBuscaCEPSearchForm);
 
 function createBuscaCEPSearchForm() {
@@ -34,17 +37,16 @@ function enviaCep() {
       digitaCEP.value &&
       digitaCEP.value.toString().replace('-', '').length == 8
     ) {
-      consultaViaCEp(
+      consultaViaCepv2(
         listaTiposAPI.value.toLowerCase(),
         digitaCEP.value.replace('-', ''),
       );
-      preencheTela();
     } else {
-      window.alert('Digite um CEP válido!');
+      vibracaoErro('Digite um CEP válido!');
     }
   });
 
-  function consultaViaCEp(api, cep) {
+  /* function consultaViaCepXML(api, cep) {
     if (window.XMLHttpRequest) {
       xmlhttp = new XMLHttpRequest();
     } else {
@@ -86,21 +88,71 @@ function enviaCep() {
         ddd: xmlhttp.responseXML.documentElement.querySelector('ddd').innerHTML,
       });
     }
+  }*/
+  function consultaViaCepv2(api, cep) {
+    fetch(`https://viacep.com.br/ws/${cep}/${api}/`)
+      .then((resposta) => resposta.text())
+      .then((resposta) => {
+        if (listaTiposAPI.value.toLowerCase() == 'json') {
+          return (resultado = JSON.parse(resposta));
+        } else if (listaTiposAPI.value.toLowerCase() == 'xml') {
+          let xmlViaCep = new window.DOMParser().parseFromString(
+            resposta,
+            'text/xml',
+          );
+
+          if (xmlViaCep.documentElement.querySelector('erro')) {
+            return (resultado = {
+              erro: true,
+              cep: '',
+              logradouro: '',
+              complemento: '',
+              bairro: '',
+              cidade: '',
+              uf: '',
+              ibge: '',
+              ddd: '',
+            });
+          } else {
+            return (resultado = {
+              erro: false,
+              cep: xmlViaCep.documentElement.querySelector('cep').innerHTML,
+              logradouro:
+                xmlViaCep.documentElement.querySelector('logradouro').innerHTML,
+              complemento:
+                xmlViaCep.documentElement.querySelector('complemento')
+                  .innerHTML,
+              bairro:
+                xmlViaCep.documentElement.querySelector('bairro').innerHTML,
+              cidade:
+                xmlViaCep.documentElement.querySelector('localidade').innerHTML,
+              uf: xmlViaCep.documentElement.querySelector('uf').innerHTML,
+              ibge: xmlViaCep.documentElement.querySelector('ibge').innerHTML,
+              ddd: xmlViaCep.documentElement.querySelector('ddd').innerHTML,
+            });
+          }
+        }
+      })
+      .then(preencheTela);
   }
+}
+function resetaTela() {
+  cep.innerHTML = '';
+  logradouro.value = '';
+  complemento.value = '';
+  bairro.value = '';
+  cidade.value = '';
+  uf.value = '';
+  ibge.value = '';
+  ddd.value = '';
 }
 
 function preencheTela() {
   if (resultado.erro == true) {
-    cep.innerHTML = '';
-    logradouro.value = '';
-    complemento.value = '';
-    bairro.value = '';
-    cidade.value = '';
-    uf.value = '';
-    ibge.value = '';
-    ddd.value = '';
-    window.alert('CEP não Encontrado!');
+    vibracaoErro('CEP não Encontrado!');
+    resetaTela();
   } else {
+    resultado.erro = false;
     resultado.cep == ''
       ? cep.innerHTML == 'NÃO INFORMADO'
       : (cep.innerHTML = resultado.cep);
